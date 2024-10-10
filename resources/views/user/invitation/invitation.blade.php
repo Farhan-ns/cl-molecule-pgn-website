@@ -19,7 +19,9 @@
   <div class="undangan">
     <form action="{{ route('register') }}" method="POST" id="rsvpForm">
       @csrf
-
+        <div style="display: flex;justify-content: center;">
+      <img src="{{asset('pgn/img/qr.jpeg')}}" alt="" style="width: 100px" />
+        </div>
       <h2>Form Kehadiran</h2>
       <div class="form-group">
         <label for="company_name">Nama Perusahaan:</label>
@@ -94,11 +96,11 @@
     document.addEventListener("DOMContentLoaded", function() {
       var video = document.getElementById("bgVideo");
       var loadingScreen = document.getElementById("loading");
-      var content = document.getElementById("content");
+      //var content = document.getElementById("content");
 
       function hideLoading() {
         loadingScreen.style.display = "none";
-        content.style.display = "block";
+        //content.style.display = "block";
       }
 
       if (video.readyState >= 3) {
