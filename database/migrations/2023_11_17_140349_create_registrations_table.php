@@ -27,7 +27,8 @@ return new class extends Migration
             $table->string('has_energy_management')->nullable();
             $table->text('company_hindrance')->nullable();
             $table->string('event_info_source')->nullable();
-            $table->string('attendance_lateness');
+            $table->string('attendance_lateness')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

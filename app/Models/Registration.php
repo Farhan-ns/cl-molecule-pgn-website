@@ -46,6 +46,13 @@ class Registration extends Model
         }
     }
 
+    public function getWillAttendAttribute()
+    {
+        $json = json_decode($this->additional_info, true);
+
+        return $json['will_attend'] ?? '';
+    }
+
     public function getBpcAttribute()
     {
         $json = json_decode($this->additional_info, true);

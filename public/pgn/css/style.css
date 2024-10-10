@@ -1,0 +1,235 @@
+@font-face {
+  font-family: font-1;
+  src: url(../font/font-1.otf) format("opentype");
+}
+.font-1 {
+  font-family: font-1;
+}
+
+@font-face {
+  font-family: __DM_Mono_0fc1eb;
+  src: url(../font/font-2.woff2) format("woff2");
+}
+
+.font-2 {
+  font-family: font-2;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.video-bg {
+  width: 100%;
+
+  z-index: -1;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+#loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+.footer {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  width: 100%;
+}
+.undangan {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+.footer-button {
+  background-color: black;
+  color: white;
+  border: solid 1px black;
+  border-radius: 16px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+.footer-button:hover {
+  background-color: transparent;
+  color: black;
+}
+body {
+  font-family: "Montserrat", sans-serif;
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* Tampilan desktop dan tablet */
+@media screen and (min-width: 768px) {
+  body {
+    width: 56.25vh; /* 16:9 ratio (9/16 = 0.5625) */
+    height: 100vh;
+    margin: 0 auto; /* Pusatkan body secara horizontal */
+  }
+}
+
+/* Tampilan mobile */
+@media screen and (max-width: 767px) {
+  body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #47a0e9;
+  }
+}
+
+.undangan form {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 16px;
+  border-radius: 10px;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.undangan h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.submit-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+}
+
+.submit-button:hover {
+  background-color: #2980b9;
+}
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .radio-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .radio-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    height: 1rem;
+    width: 1rem;
+    background-color: transparent;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+  }
+  
+  .radio-container:hover input ~ .checkmark {
+    background-color: #f0f0f0;
+  }
+  
+  .radio-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+    border-color: #2196F3;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .radio-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  

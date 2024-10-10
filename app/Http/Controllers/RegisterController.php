@@ -8,32 +8,25 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    public function index() {
-        return view('user.register');
+    public function index()
+    {
+        return view('user.invitation.index');
+    }
+
+    public function showRsvp()
+    {
+        return view('user.invitation.invitation');
     }
 
     public function register(RegistrationRequest $request)
     {
         $validated = $request->validated();
 
-        $newsDirectory = '';
-        if (config('app.env') == 'local') {
-            $newsDirectory = public_path() . '/images';
-        } else {
-            $newsDirectory = base_path() . '/../images';
-        }
-
-        $imageName = $request->file('image')->hashName();
-        $validated['image'] = $imageName;
-        $request->file('image')->move($newsDirectory, $imageName);
-
         $additionalInfo = [
-            'bpc' => $validated['bpc'],
-            'membership' => $validated['membership'],
-            'image' => $validated['image'],
+            'will_attend' => $validated['will_attend'],
         ];
         $validated['additional_info'] = json_encode($additionalInfo);
-        $validated['email'] = $validated['phone'] . '@email.com';
+        $validated['attendance_lateness'] = 'false';
 
         Registration::create($validated);
 

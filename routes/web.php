@@ -67,6 +67,7 @@ Route::get('/test', function () {
 });
 
 Route::get('/', [RegisterController::class, 'index']);
+Route::get('/rsvp', [RegisterController::class, 'showRsvp'])->name('rsvp');
 Route::post('/', [RegisterController::class, 'register'])->name('register');
 
 Route::name('admin.')->prefix('admin')->group(function () {

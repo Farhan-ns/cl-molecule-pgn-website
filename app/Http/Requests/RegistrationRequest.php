@@ -23,11 +23,11 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['nullable', 'email', 'unique:registrations'],
+            'email' => ['required', 'email', 'unique:registrations'],
             'phone' => ['required', 'numeric', 'unique:registrations'],
             'company_industry' => ['nullable'],
             'company_industry_input' => ['required_if:company_industry,Other'],
-            'company_name' => ['nullable'],
+            'company_name' => ['required'],
             'office' => ['required'],
             'office_input' => ['nullable_if:office,Other'],
             'company_phone' => ['nullable', 'numeric'],
@@ -35,9 +35,9 @@ class RegistrationRequest extends FormRequest
             'company_address' => ['nullable'],
             'workshop_question' => ['nullable'],
 
-            'bpc' => ['required'],
-            'membership' => ['required'],
-            'image' => ['required', 'image', 'max:2042'],
+            'will_attend' => ['required'],
+            // 'membership' => ['required'],
+            // 'image' => ['required', 'image', 'max:2042'],
 
             'event_info_source' => ['nullable'],
             'event_info_source_input' => ['nullable_if:event_info_source,Other'],
@@ -65,7 +65,7 @@ class RegistrationRequest extends FormRequest
             'company_address.required' => 'Alamat Perusahaan harus diisi',
             'workshop_question.required' => 'Pertanyaan seputar tema harus diisi',
 
-            'bpc.required' => 'Asal BPC harus diisi',
+            'will_attend.required' => 'Kehadiran harus diisi',
             'membership.required' => 'Keanggotaan harus diisi',
             'image.required' => 'Gambar tidak boleh kosong',
 
