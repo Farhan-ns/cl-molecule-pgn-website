@@ -19,12 +19,14 @@
     Browser Anda tidak mendukung tag video.
   </video>
 
+
   <div class="undangan">
     <form action="{{ route('register') }}" method="POST" id="rsvpForm">
       @csrf
       <div style="display: flex;justify-content: center;">
         <img src="{{ asset('pgn/img/qr.jpeg') }}" alt="" style="width: 100px" />
       </div>
+
       <h2>Form Kehadiran</h2>
       <div class="form-group">
         <label for="company_name">Nama Perusahaan:</label>
@@ -34,8 +36,9 @@
         <select id="select2-companies" style="width: 100%"></select>
       </div>
       <div class="form-group">
+        <label for="company_address">Domisili Perusahaan:</label>
+        <input type="text" name="company_address" value="" readonly>
         <input type="hidden" name="company_name" value="">
-        <input type="hidden" name="company_address" value="">
         {{-- <label for="company_address">Domisili Perusahaan:</label>
         <select id="company_address" name="company_address" required>
           <option value="">Pilih</option>
@@ -72,7 +75,7 @@
       </div>
 
       <div class="form-group">
-        <label for="phone">No Handphone Peserta:</label>
+        <label for="phone">No Handphone Peserta (pastikan nomor anda terdaftar di my pertamina):</label>
         @error('phone')
           <span style="color: red;">{{ $message }}</span>
         @enderror
