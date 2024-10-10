@@ -32,7 +32,7 @@ class RegistrationRequest extends FormRequest
             'office_input' => ['nullable_if:office,Other'],
             'company_phone' => ['nullable', 'numeric'],
             'company_email' => ['nullable', 'email'],
-            'company_address' => ['nullable'],
+            'company_address' => ['required'],
             'workshop_question' => ['nullable'],
 
             'will_attend' => ['required'],

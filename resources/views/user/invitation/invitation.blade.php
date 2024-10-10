@@ -12,7 +12,7 @@
     <div class="spinner"></div>
   </div>
   <video id="bgVideo" class="video-bg" autoplay muted loop playsinline preload="auto" oncontextmenu="return false;">
-    <source src="{{ asset('pgn/video/bg.mp4') }}" type="video/mp4" />
+    <source src="{{ asset('pgn/video/bg-new.mp4') }}" type="video/mp4" />
     Browser Anda tidak mendukung tag video.
   </video>
 
@@ -30,14 +30,18 @@
         @enderror
         <input type="text" id="company_name" name="company_name" required>
       </div>
-      {{-- <div class="form-group">
-        <label for="intansi">Instansi:</label>
-        <select id="intansi" name="intansi" required>
+      <div class="form-group">
+        <label for="company_address">Domisili Perusahaan:</label>
+        <select id="company_address" name="company_address" required>
           <option value="">Pilih</option>
-          <option value="hadir">Pemerintah</option>
-          <option value="tidak_hadir">Media</option>
+          <option value="Jakarta">Jakarta</option>
+          <option value="Tangerang">Tangerang</option>
+          <option value="Bekasi">Bekasi</option>
+          <option value="Karawang">Karawang</option>
+          <option value="Bogor">Bogor</option>
+          <option value="Cirebon">Cirebon</option>
         </select>
-      </div> --}}
+      </div>
       <div class="form-group">
         <label for="name">Nama Peserta Yang Akan Hadir:</label>
         @error('name')
