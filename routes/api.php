@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CompaniesController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\ScanController;
@@ -25,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/scan', [ScanController::class, 'parseScan']);
     Route::post('/second-scan', [ScanController::class, 'parseSecondScan']);
 });
+
+Route::get('/companies-domicile', [CompaniesController::class, 'getCompanies'])->name('api.getCompanies');
 
 Route::get('/{id}/notifications/', [NotificationController::class, 'getUnreadNotifications']);
 Route::post('/login', [LoginController::class, 'auth']);

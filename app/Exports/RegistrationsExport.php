@@ -33,10 +33,15 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithMapping
     {
         return [
             'Nama',
-            'Nomor WA Aktif',
+            'Nomor HP',
+            'Email',
+            'Jabatan',
+            'Nama Perusahaan',
+            'Domisili Perusahaan',
+            'Akan Hadir',
+            'Tanggal RSVP',
             'Telah Scan',
             'Waktu Scan',
-            'Tanggal Registrasi',
         ];
     }
 
@@ -47,9 +52,14 @@ class RegistrationsExport implements FromCollection, ShouldAutoSize, WithMapping
         return [
             Str::title($registration->name),
             $registration->phone,
+            $registration->email,
+            $registration->office,
+            $registration->company_name,
+            $registration->company_address,
+            $registration->will_attend ? 'Ya' : 'Tidak',
+            Carbon::parse($registration->created_at)->format('d/m/Y'),
             $registration->has_attended ? 'Ya' : 'Tidak',
             $registration->has_attended ? Carbon::parse($registration->attended_at)->setTimezone('Asia/Jakarta')->format('H:i d/m/Y') : '',
-            Carbon::parse($registration->created_at)->format('d/m/Y'),
         ];
     }
 }

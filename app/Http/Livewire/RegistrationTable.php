@@ -58,7 +58,7 @@ class RegistrationTable extends DataTableComponent
                 ->searchable()
                 ->sortable()
                 ->format(
-                    fn ($value, $row, Column $column) => Str::title($value)
+                    fn($value, $row, Column $column) => Str::title($value)
                 ),
             Column::make("Nomor HP", "phone")
                 ->searchable()
@@ -66,21 +66,30 @@ class RegistrationTable extends DataTableComponent
             Column::make("Email", "email")
                 ->searchable()
                 ->sortable(),
+            Column::make("Jabatan", "office")
+                ->searchable()
+                ->sortable(),
+            Column::make("Perusahaan", "company_name")
+                ->searchable()
+                ->sortable(),
+            Column::make("Domisili Perusahaan", "company_address")
+                ->searchable()
+                ->sortable(),
             Column::make("Tanggal", "created_at")
                 ->sortable()
                 ->format(
-                    fn ($value, $row, Column $column) => $row->created_at->isoFormat('D MMMM Y')
+                    fn($value, $row, Column $column) => $row->created_at->isoFormat('D MMMM Y')
                 ),
-            BooleanColumn::make('Telah Scan', 'has_attended'),
             Column::make("Akan Hadir", "additional_info")
                 ->sortable()
                 ->format(
                     fn($value, $row, Column $column) => $row->getWillAttendAttribute() ? 'Ya' :  'Tidak'
                 ),
+            BooleanColumn::make('Telah Scan', 'has_attended'),
             Column::make("Terakhir di Blast", "last_blasted")
                 ->sortable()
                 ->format(
-                    fn ($value, $row, Column $column) => empty($value) ? '' : Carbon::parse($value)->diffForHumans()
+                    fn($value, $row, Column $column) => empty($value) ? '' : Carbon::parse($value)->diffForHumans()
                 ),
             ButtonGroupColumn::make('Actions')
                 ->attributes(function ($row) {
