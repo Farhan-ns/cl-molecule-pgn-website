@@ -34,18 +34,6 @@ class Registration extends Model
         'membership',
     ];
 
-    public function getImageUrlAttribute()
-    {
-        $json = json_decode($this->additional_info, true);
-
-        if ($json['image'] ?? false) {
-            $image = $json['image'];
-            return asset('images/' . $image);
-        } else {
-            return 'https://dummyimage.com/500x500/d3d3d3/fff&text=Tidak+ada+gambar';
-        }
-    }
-
     public function getWillAttendAttribute()
     {
         $json = json_decode($this->additional_info, true);
@@ -53,17 +41,40 @@ class Registration extends Model
         return $json['will_attend'] ?? '';
     }
 
-    public function getBpcAttribute()
+    /**
+     * Get or generate a unique code for the user.
+     *
+     * @return string
+     */
+    public function getUniqueCode()
     {
-        $json = json_decode($this->additional_info, true);
+        if ($this->unique_code) {
+            return $this->unique_code;
+        }
 
-        return $json['bpc'] ?? '';
+        $this->unique_code = $this->generateUniqueCode();
+        $this->save();
+
+        return $this->unique_code;
     }
 
-    public function getMembershipAttribute()
+    /**
+     * Generate a unique code.
+     *
+     * @return string
+     */
+    private function generateUniqueCode()
     {
-        $json = json_decode($this->additional_info, true);
+        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $codeLength = 6;
 
-        return $json['membership'] ?? '';
+        do {
+            $code = '';
+            for ($i = 0; $i < $codeLength; $i++) {
+                $code .= $characters[rand(0, strlen($characters) - 1)];
+            }
+        } while (Registration::where('unique_code', $code)->exists());
+
+        return $code;
     }
 }

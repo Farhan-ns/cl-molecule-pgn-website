@@ -23,10 +23,6 @@
   <div class="undangan">
     <form action="{{ route('register') }}" method="POST" id="rsvpForm">
       @csrf
-      <div style="display: flex;justify-content: center;">
-        <img src="{{ asset('pgn/img/qr.jpeg') }}" alt="" style="width: 100px" />
-      </div>
-
       <h2>Form Kehadiran</h2>
       <div class="form-group">
         <label for="company_name">Nama Perusahaan:</label>
@@ -35,6 +31,7 @@
         @enderror
         <select id="select2-companies" style="width: 100%"></select>
       </div>
+
       <div class="form-group">
         <label for="company_address">Domisili Perusahaan:</label>
         <input type="text" name="company_address" value="" readonly>
@@ -50,6 +47,7 @@
           <option value="Cirebon">Cirebon</option>
         </select> --}}
       </div>
+
       <div class="form-group">
         <label for="name">Nama Peserta Yang Akan Hadir:</label>
         @error('name')
@@ -80,6 +78,11 @@
           <span style="color: red;">{{ $message }}</span>
         @enderror
         <input type="text" id="phone" name="phone" min="10" max="14" required>
+      </div>
+
+      <div style="display: flex;justify-content: center;align-items:center; margin-bottom: 15px;">
+        <img src="{{ asset('pgn/img/qr.jpeg') }}" alt="" style="width: 100px; margin-right: 5px;" />
+        <p>Dapatkan aplikasi MyPertamina sekarang!</p>
       </div>
 
       <div class="form-group">
@@ -198,8 +201,12 @@
   @if (Session::has('swal-register-success'))
     <script>
       Swal.fire({
-        title: "Registrasi Berhasil",
-        text: 'Terima kasih atas registrasi Anda.',
+        title: "Pendaftaran Berhasil",
+        text: 'Mohon simpan QR ini untuk daftar ulang.',
+        imageUrl: "{{ session('qr_path') }}",
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: "QR",
         icon: 'success',
         confirmButtonColor: '#2980b9',
       });
