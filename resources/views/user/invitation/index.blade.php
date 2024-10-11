@@ -51,7 +51,7 @@
   <div class="footer">
     <div id="openInvitation" style="display: none;">
       <div style="display: flex; flex-direction: column;">
-        <button class="footer-button font-1">
+        <button class="footer-button font-1" style="margin-bottom: .3rem;">
           Confirm
         </button>
 
