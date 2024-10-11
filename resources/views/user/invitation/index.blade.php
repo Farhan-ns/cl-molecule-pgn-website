@@ -49,9 +49,16 @@
   </div>
 
   <div class="footer">
-    <button class="footer-button font-1" id="openInvitation" style="display: none;">
-      Buka Undangan
-    </button>
+    <div id="openInvitation" style="display: none;">
+      <div style="display: flex; flex-direction: column;">
+        <button class="footer-button font-1">
+          Confirm
+        </button>
+
+        <span class="font-1">Your Attendance</span>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -102,19 +109,19 @@
       setTimeout(hideLoading, 10000); // 10 detik
 
       // Menampilkan tombol dengan animasi fade in setelah 8 detik
-      setTimeout(function() {
-        openInvitationButton.style.display = "block";
-        openInvitationButton.style.opacity = 0;
-        var opacity = 0;
-        var intervalID = setInterval(function() {
-          if (opacity < 1) {
-            opacity += 0.1;
-            openInvitationButton.style.opacity = opacity;
-          } else {
-            clearInterval(intervalID);
-          }
-        }, 100); // 100ms
-      }, 8000);
+      // setTimeout(function() {
+      //   openInvitationButton.style.display = "block";
+      //   openInvitationButton.style.opacity = 0;
+      //   var opacity = 0;
+      //   var intervalID = setInterval(function() {
+      //     if (opacity < 1) {
+      //       opacity += 0.1;
+      //       openInvitationButton.style.opacity = opacity;
+      //     } else {
+      //       clearInterval(intervalID);
+      //     }
+      //   }, 100); // 100ms
+      // }, 8000);
 
       // Menambahkan event listener untuk tombol Buka Undangan
       openInvitationButton.addEventListener("click", function() {
@@ -154,6 +161,21 @@
           if (activeVideo) {
             activeVideo.play();
           }
+        },
+        reachEnd: function() {
+          // Menampilkan tombol dengan animasi fade in setelah 8 detik
+          var openInvitationButton = document.getElementById("openInvitation");
+          openInvitationButton.style.display = "block";
+          openInvitationButton.style.opacity = 0;
+          var opacity = 0;
+          var intervalID = setInterval(function() {
+            if (opacity < 1) {
+              opacity += 0.1;
+              openInvitationButton.style.opacity = opacity;
+            } else {
+              clearInterval(intervalID);
+            }
+          }, 100); // 100ms
         }
       }
     });
