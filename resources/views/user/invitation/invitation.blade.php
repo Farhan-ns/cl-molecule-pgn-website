@@ -82,7 +82,7 @@
 
       <div style="display: flex;justify-content: center;align-items:center; margin-bottom: 15px;">
         <img src="{{ asset('pgn/img/qr.jpeg') }}" alt="" style="width: 100px; margin-right: 5px;" />
-        <p>Dapatkan aplikasi MyPertamina sekarang!</p>
+        <p>Download MyPertamina sekarang, dapatkan hadiah Voucher MyPertamina bagi 100 orang yang beruntung di Customer Business Forum 2024</p>
       </div>
 
       <div class="form-group">
@@ -202,7 +202,7 @@
     <script>
       Swal.fire({
         title: "Pendaftaran Berhasil",
-        text: 'Mohon simpan QR ini untuk daftar ulang.',
+        text: 'Mohon simpan QR ini untuk daftar ulang',
         imageUrl: "{{ session('qr_path') }}",
         imageWidth: 200,
         imageHeight: 200,

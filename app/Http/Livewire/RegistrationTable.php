@@ -98,14 +98,14 @@ class RegistrationTable extends DataTableComponent
                     ];
                 })
                 ->buttons([
-                    // LinkColumn::make('Edit')
-                    //     ->title(fn ($row) => 'Edit')
-                    //     ->location(fn ($row) => route('admin.registration.edit', $row->id))
-                    //     ->attributes(function ($row) {
-                    //         return [
-                    //             'class' => 'btn btn-warning mb-1',
-                    //         ];
-                    //     }),
+                    LinkColumn::make('Edit')
+                        ->title(fn ($row) => 'Edit')
+                        ->location(fn ($row) => route('admin.registration.edit', $row->id))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'btn btn-warning mb-1',
+                            ];
+                        }),
                     // LinkColumn::make('Detail')
                     //     ->title(fn ($row) => 'Detail')
                     //     ->location(fn ($row) => route('admin.registration.show', $row->id))
@@ -124,23 +124,23 @@ class RegistrationTable extends DataTableComponent
                     //             'target' => '_blank'
                     //         ];
                     //     }),
-                    // LinkColumn::make('QR')
-                    //     ->title(fn ($row) => 'QR')
-                    //     ->location(fn ($row) => route('admin.registration.downloadQr', $row->id))
-                    //     ->attributes(function ($row) {
-                    //         return [
-                    //             'class' => 'btn btn-primary mb-1',
-                    //         ];
-                    //     }),
+                    LinkColumn::make('QR')
+                        ->title(fn ($row) => 'QR')
+                        ->location(fn ($row) => route('admin.registration.downloadQr', $row->id))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'btn btn-primary mb-1',
+                            ];
+                        }),
 
-                    // LinkColumn::make('Hapus')
-                    //     ->title(fn ($row) => 'Hapus')
-                    //     ->location(fn ($row) => route('admin.registration.destroy', $row->id))
-                    //     ->attributes(function ($row) {
-                    //         return [
-                    //             'class' => 'btn btn-danger mb-1',
-                    //         ];
-                    //     }),
+                    LinkColumn::make('Hapus')
+                        ->title(fn ($row) => 'Hapus')
+                        ->location(fn ($row) => route('admin.registration.destroy', $row->id))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'btn btn-danger mb-1',
+                            ];
+                        }),
                 ]),
         ];
     }

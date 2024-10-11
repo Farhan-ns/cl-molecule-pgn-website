@@ -14,15 +14,15 @@ class QrController extends Controller
 {
     public function downloadQr(Request $request, Registration $registration)
     {
-        $encryptedId = Crypt::encrypt($registration->id);
+        $uniqueCode = $registration->getUniqueCode();
         
         return response()->streamDownload(
-            function () use ($encryptedId) {
+            function () use ($uniqueCode) {
                 echo QrCode::size(1000)
                     ->format('png')
                     ->margin(1)
                     ->errorCorrection('M')
-                    ->generate($encryptedId);
+                    ->generate($uniqueCode);
             },
             "$registration->name.png",
             ['Content-Type' => 'image/png'],
@@ -33,7 +33,7 @@ class QrController extends Controller
     {
         $pathService = new PublicPathService();
 
-        $encryptedId = Crypt::encrypt($registration->id);
+        $uniqueCode = $registration->getUniqueCode();
         
         $format = 'png';
         $directory = $pathService->getQrPath() . "/$registration->id";
@@ -44,7 +44,7 @@ class QrController extends Controller
         QrCode::format($format)
             ->size(1000)
             ->errorCorrection('M')
-            ->generate($encryptedId, "$directory/$fileName");
+            ->generate($uniqueCode, "$directory/$fileName");
         
         return asset("qr/$registration->id/$fileName");
         // return response()->file("$directory/$fileName");

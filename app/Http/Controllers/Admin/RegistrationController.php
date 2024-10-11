@@ -63,32 +63,16 @@ class RegistrationController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required'],
+            'email' => ['required', 'email'],
             'phone' => ['required', 'numeric'],
+            'company_name' => ['required'],
+            'company_address' => ['required'],
             'office' => ['required'],
-            'bpc' => ['required'],
-            'membership' => ['required'],
-            'image' => ['nullable', 'image', 'max:2042'],
+            'will_attend' => ['required'],
         ]);
 
-        $decodedAdditionalInfo = json_decode($registration->additional_info, true);
-
-        if ($request->image) {
-            $newsDirectory = '';
-            if (config('app.env') == 'local') {
-                $newsDirectory = public_path() . '/images';
-            } else {
-                $newsDirectory = base_path() . '/../images';
-            }
-
-            $imageName = $request->file('image')->hashName();
-            $validated['image'] = $imageName;
-            $request->file('image')->move($newsDirectory, $imageName);
-        }
-
         $additionalInfo = [
-            'bpc' => $validated['bpc'],
-            'membership' => $validated['membership'],
-            'image' => $request->image ? $validated['image'] : $decodedAdditionalInfo['image'] ?? '',
+            'will_attend' => $validated['will_attend'],
         ];
 
         $validated['additional_info'] = json_encode($additionalInfo);
