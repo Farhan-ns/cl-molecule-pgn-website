@@ -21,7 +21,7 @@
 
 
   <div class="undangan">
-    <form action="{{ route('register') }}" method="POST" id="rsvpForm">
+    <form action="{{ route('register') }}" method="POST" id="rsvpForm" novalidate="novalidate">
       @csrf
       <h2>Form Kehadiran</h2>
       <div class="form-group">
@@ -77,12 +77,26 @@
         @error('phone')
           <span style="color: red;">{{ $message }}</span>
         @enderror
-        <input type="text" id="phone" name="phone" min="10" max="14" required>
+        <input type="text" id="phone" name="phone" min="10" max="14" placeholder="08xxxxxxxxxx"
+          required>
       </div>
 
       <div style="display: flex;justify-content: center;align-items:center; margin-bottom: 15px;">
         <img src="{{ asset('pgn/img/qr.jpeg') }}" alt="" style="width: 100px; margin-right: 5px;" />
-        <p>Download MyPertamina sekarang, dapatkan hadiah Voucher MyPertamina bagi 100 orang yang beruntung di Customer Business Forum 2024</p>
+        <p style="font-size: .85rem;">Download My Pertamina sekarang, dapatkan hadiah Voucher My Pertamina bagi 100
+          orang
+          yang beruntung di Customer Business Forum 2024</p>
+      </div>
+
+      <div style="display: flex;justify-content: center;align-items:center; margin-bottom: 15px;">
+        <a href="https://play.google.com/store/apps/details?id=com.dafturn.mypertamina&hl=id">
+          <img src="{{ asset('pgn/img/get-on-playstore_compressed.jpg') }}" alt=""
+            style="width: 120px; margin-right: 5px;" />
+        </a>
+        <a href="https://apps.apple.com/id/app/mypertamina/id1295039064">
+          <img src="{{ asset('pgn/img/get-on-appstore_compressed.jpg') }}" alt=""
+            style="width: 100px; margin-right: 5px;" />
+        </a>
       </div>
 
       <div class="form-group">
@@ -90,14 +104,14 @@
         @error('will_attend')
           <span style="color: red;">{{ $message }}</span>
         @enderror
-        <div class="radio-group">
+        <div class="radio-group" id="will_attend_group">
           <label class="radio-container">
-            <input type="radio" name="will_attend" value="1" required>
+            <input type="radio" name="will_attend" value="1">
             <span class="checkmark"></span>
             Ya
           </label>
           <label class="radio-container">
-            <input type="radio" name="will_attend" value="0" required>
+            <input type="radio" name="will_attend" value="0">
             <span class="checkmark"></span>
             Tidak
           </label>
@@ -110,6 +124,7 @@
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
 
   <script>
     let cachedData = [];
@@ -129,20 +144,11 @@
 
         $('#select2-companies').select2({
           placeholder: 'Pilih Perusahaan',
-          data: cachedData
+          data: cachedData,
+          allowClear: true,
         });
 
-        // Manually handle the first selected item after initialization
-        let firstSelectedId = $('#select2-companies').val();
-        if (firstSelectedId) {
-          // Simulate the select2:select event for the first selected item
-          let splitId = firstSelectedId.split('->');
-          let companyName = splitId[0];
-          let area = splitId[1];
-
-          $('input[name="company_name"]').val(companyName);
-          $('input[name="company_address"]').val(area);
-        }
+        $('#select2-companies').val(null).trigger('change');
 
         $('#select2-companies').on('select2:select', function(e) {
           let selectedId = e.params.data.id;
@@ -154,11 +160,54 @@
           $('input[name="company_name"]').val(companyName);
           $('input[name="company_address"]').val(area);
         });
+
+        // Handle clear event when user deselects
+        $('#select2-companies').on('select2:clear', function() {
+          // Clear hidden inputs when the selection is cleared
+          $('input[name="company_name"]').val('');
+          $('input[name="company_address"]').val('');
+        });
       },
       error: function(err) {
         console.error("Error fetching companies data", err);
       }
     });
+  </script>
+
+  <script>
+    const validator = new window.JustValidate('#rsvpForm', {
+      submitFormAutomatically: true,
+    });
+
+    validator
+      .addField('#select2-companies', [{
+        rule: 'required',
+        errorMessage: 'Silakan memilih perusahaan anda.',
+      }])
+      .addField('#name', [{
+        rule: 'required',
+        errorMessage: 'Silakan mengisi nama anda.',
+      }])
+      .addField('#office', [{
+        rule: 'required',
+        errorMessage: 'Silakan mengisi jabatan anda.',
+      }])
+      .addField('#email', [{
+        rule: 'required',
+        errorMessage: 'Silakan mengisi email anda.',
+      }])
+      .addField('#phone', [{
+        rule: 'required',
+        errorMessage: 'Silakan nomor telepon anda.',
+      }])
+      .addField('#phone', [{
+        rule: 'required',
+        errorMessage: 'Silakan nomor telepon anda.',
+      }])
+      .addRequiredGroup(
+        '#will_attend_group',
+        'Silakan pilih apakah Anda akan menghadiri acara.'
+      );
   </script>
 
   <script>
