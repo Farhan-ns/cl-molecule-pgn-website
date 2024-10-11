@@ -39,5 +39,20 @@ class AdminSeeder extends Seeder
             'email' => 'admin5@pgn.cyberlabs.co.id',
             'password' => 'PassAdmin5',
         ]);
+        User::create([
+            'name' => 'Admin 6',
+            'email' => 'admin6@pgn.cyberlabs.co.id',
+            'password' => 'PassAdmin6',
+        ]);
+        User::create([
+            'name' => 'Admin 7',
+            'email' => 'admin7@pgn.cyberlabs.co.id',
+            'password' => 'PassAdmin7',
+        ]);
+        User::create([
+            'name' => 'Admin 8',
+            'email' => 'admin8@pgn.cyberlabs.co.id',
+            'password' => 'PassAdmin8',
+        ]);
     }
 }
