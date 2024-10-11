@@ -22,11 +22,11 @@
       <div class="swiper-slide">
         <video id="bgVideo-1" class="video-bg" autoplay muted loop playsinline preload="auto"
           oncontextmenu="return false;">
-          <source src="{{ asset('pgn/video/Motion-1.mp4') }}" type="video/mp4" />
+          <source src="{{ asset('pgn/video/video-full.mp4') }}" type="video/mp4" />
           Browser Anda tidak mendukung tag video.
         </video>
       </div>
-      <div class="swiper-slide">
+      {{-- <div class="swiper-slide">
         <video id="bgVideo-2" class="video-bg" autoplay muted loop playsinline preload="auto"
           oncontextmenu="return false;">
           <source src="{{ asset('pgn/video/Motion-2.mp4') }}" type="video/mp4" />
@@ -39,7 +39,7 @@
           <source src="{{ asset('pgn/video/Motion-3.mp4') }}" type="video/mp4" />
           Browser Anda tidak mendukung tag video.
         </video>
-      </div>
+      </div> --}}
       ...
     </div>
 
@@ -65,8 +65,8 @@
     document.addEventListener("DOMContentLoaded", function() {
       var videos = [
         document.getElementById("bgVideo-1"),
-        document.getElementById("bgVideo-2"),
-        document.getElementById("bgVideo-3")
+        // document.getElementById("bgVideo-2"),
+        // document.getElementById("bgVideo-3")
       ];
       var loadingScreen = document.getElementById("loading");
       //var content = document.getElementById("content");
@@ -108,20 +108,20 @@
       // Tambahkan timeout untuk menghindari loading tak terbatas
       setTimeout(hideLoading, 10000); // 10 detik
 
-      // Menampilkan tombol dengan animasi fade in setelah 8 detik
-      // setTimeout(function() {
-      //   openInvitationButton.style.display = "block";
-      //   openInvitationButton.style.opacity = 0;
-      //   var opacity = 0;
-      //   var intervalID = setInterval(function() {
-      //     if (opacity < 1) {
-      //       opacity += 0.1;
-      //       openInvitationButton.style.opacity = opacity;
-      //     } else {
-      //       clearInterval(intervalID);
-      //     }
-      //   }, 100); // 100ms
-      // }, 8000);
+      // Menampilkan tombol dengan animasi fade in setelah 29 detik
+      setTimeout(function() {
+        openInvitationButton.style.display = "block";
+        openInvitationButton.style.opacity = 0;
+        var opacity = 0;
+        var intervalID = setInterval(function() {
+          if (opacity < 1) {
+            opacity += 0.1;
+            openInvitationButton.style.opacity = opacity;
+          } else {
+            clearInterval(intervalID);
+          }
+        }, 100); // 100ms
+      }, 29000);
 
       // Menambahkan event listener untuk tombol Buka Undangan
       openInvitationButton.addEventListener("click", function() {
@@ -162,21 +162,6 @@
             activeVideo.play();
           }
         },
-        reachEnd: function() {
-          // Menampilkan tombol dengan animasi fade in setelah 8 detik
-          var openInvitationButton = document.getElementById("openInvitation");
-          openInvitationButton.style.display = "block";
-          openInvitationButton.style.opacity = 0;
-          var opacity = 0;
-          var intervalID = setInterval(function() {
-            if (opacity < 1) {
-              opacity += 0.1;
-              openInvitationButton.style.opacity = opacity;
-            } else {
-              clearInterval(intervalID);
-            }
-          }, 100); // 100ms
-        }
       }
     });
   </script>
