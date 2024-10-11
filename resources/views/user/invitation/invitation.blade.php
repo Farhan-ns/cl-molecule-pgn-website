@@ -73,7 +73,7 @@
       </div>
 
       <div class="form-group">
-        <label for="phone">No Handphone Peserta (pastikan nomor anda terdaftar di my pertamina):</label>
+        <label for="phone">No Handphone Peserta (pastikan nomor anda terdaftar di My Pertamina):</label>
         @error('phone')
           <span style="color: red;">{{ $message }}</span>
         @enderror
