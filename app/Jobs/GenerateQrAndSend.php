@@ -34,7 +34,7 @@ class GenerateQrAndSend implements ShouldQueue
     {
         $registration = $this->registration;
 
-        $encryptedId = Crypt::encrypt($registration->id);
+        $uniqueCode = $registration->unique_code;
 
         $format = 'png';
         $directory = $pathService->getQrPath();
@@ -45,10 +45,10 @@ class GenerateQrAndSend implements ShouldQueue
         File::ensureDirectoryExists($directory);
 
         QrCode::format($format)
-            ->size(1000)
+            ->size(600)
             ->margin(1)
             ->errorCorrection('M')
-            ->generate($encryptedId, $nameWithDiretory);
+            ->generate($uniqueCode, $nameWithDiretory);
 
         SendToWhatsapp::dispatch($registration, "qr/$fileName", $pathService);
     }
