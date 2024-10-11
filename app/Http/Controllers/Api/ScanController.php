@@ -17,9 +17,9 @@ class ScanController extends Controller
             'qr_value' => 'required'
         ]);
 
-        $decryptedValue = Crypt::decrypt($request->qr_value);
+        $qrValue = $request->qr_value;
         $admin = $request->user();
-        $registration = Registration::find($decryptedValue);
+        $registration = Registration::where('unique_code', $qrValue)->firstOrFail();
 
         if ($registration->has_attended) {
             return response()->error([], 400, 'QR telah di-scan sebelumnya');
