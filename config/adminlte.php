@@ -66,7 +66,7 @@ return [
     'logo' => '<b>‎</b>',
     // 'logo' => '<b>PGN</b>',
     // 'logo_img' => "<img src='{{ asset('pgn/img/logo-colored.png') }}",
-    'logo_img' => asset('pgn/img/logo-colored.png'),
+    'logo_img' => "pgn/img/logo-colored.png",
     'logo_img_class' => 'brand-image',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
