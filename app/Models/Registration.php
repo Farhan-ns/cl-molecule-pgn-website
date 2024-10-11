@@ -30,9 +30,7 @@ class Registration extends Model
     ];
 
     protected $appends = [
-        'image_url',
-        'bpc',
-        'membership',
+        'will_attend',
     ];
 
     public function getWillAttendAttribute()
