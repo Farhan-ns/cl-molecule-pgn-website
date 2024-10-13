@@ -28,9 +28,9 @@ class RegistrationTable extends DataTableComponent
     protected $model = Registration::class;
     private $twilio;
 
-    // public array $bulkActions = [
-    //     'sendQrToPhone' => 'Kirim Kode QR',
-    // ];
+    public array $bulkActions = [
+        'sendQrToPhone' => 'Kirim Kode QR',
+    ];
 
     public function __construct()
     {
