@@ -3,10 +3,10 @@
 namespace App\Jobs;
 
 use App\Models\Registration;
-use App\Models\TwilioLog;
+use App\Models\WatzapLog;
 use App\Services\PhoneNumberParserService;
 use App\Services\PublicPathService;
-use App\Services\TwilioService;
+use App\Services\WatzapService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -33,16 +33,50 @@ class SendToWhatsapp implements ShouldQueue
     /**
      * Execute the job.
      */
-    public function handle(TwilioService $twilio, PublicPathService $pathService): void
+    public function handle(WatzapService $watzap, PublicPathService $pathService): void
     {
-
         $recipientNumber = $this->registration->phone;
+        $recipientName = $this->registration->name;
         $recipientNumber = PhoneNumberParserService::parseToInternational($recipientNumber);
 
-        $response = $twilio->sendContentMediaQR($recipientNumber, $this->fileName);
+        $message = <<<END
+        Terima kasih telah melakukan registrasi untuk acara Customer Business Forum Tahun 2024
+        \"Bridging Challenges, Strengthening Bonds\"
 
-        TwilioLog::create([
-            'response_log' => json_encode($response->toArray()),
+        Yang akan dilaksanakan pada :
+        Hari/Tanggal 	: Rabu/16 Oktober 2024
+        Waktu		: 08.00 - 13.00
+        Tempat		: ICE BSD - Nusantara Hall Ground Floor
+        Maps		: https://maps.app.goo.gl/BdRhjvCP8wufZd4PA
+        Dress Code : 
+        * Pria - Kemeja batik lengan panjang
+        * Wanita - Nuansa batik
+
+        Harap menyimpan dan menunjukkan QR code diatas pada saat registrasi ulang di venue
+
+        *****
+
+        Undangan ini berlaku untuk 1 (satu) orang
+
+        Download aplikasi My Pertamina melalui tautan berikut :
+        Google Play Store - 
+        https://play.google.com/store/apps/details?id=com.dafturn.mypertamina&pcampaignid=web_share
+
+        Apple Store -
+        https://apps.apple.com/id/app/mypertamina/id1295039064
+
+        Sampai jumpa di Customer Business Forum Tahun 2024
+
+        Regards,
+        Management
+        PT Perusahaan Gas Negara Tbk.
+        END;
+
+        $response = $watzap->sendMessageWithImage($recipientNumber, asset($this->fileName), $message);
+        // $response = $watzap->sendMessage($recipientNumber, $message);
+
+        WatzapLog::create([
+            'response_log' => json_encode($response),
             'registration_id' => $this->registration->id,
         ]);
     }
@@ -52,7 +86,7 @@ class SendToWhatsapp implements ShouldQueue
      */
     public function failed(Throwable $exception): void
     {
-        TwilioLog::create([
+        WatzapLog::create([
             'response_log' => json_encode([
                 'Sending Whatsapp Message has failed'
             ]),
