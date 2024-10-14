@@ -43,14 +43,8 @@ class ScanController extends Controller
             'qr_value' => 'required'
         ]);
 
-        $decryptedValue = Crypt::decrypt($request->qr_value);
-        $registration = Registration::find($decryptedValue);
-
-        DB::transaction(function () use($registration) {
-            $registration->has_second_scan = true;
-            $registration->second_scan_at = now();
-            $registration->save();
-        });
+        $qrValue = $request->qr_value;
+        $registration = Registration::where('unique_code', $qrValue)->firstOrFail();
 
         return response()->success($registration, 200, 'Scan tahap 2 berhasil', );
     }
