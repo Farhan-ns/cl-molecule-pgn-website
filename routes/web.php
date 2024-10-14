@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\BlastController;
+use App\Http\Controllers\Admin\ChartController;
 use App\Http\Controllers\Admin\LoginController;
 use App\Http\Controllers\Admin\NametagController;
 use App\Http\Controllers\Admin\QrController;
@@ -86,6 +87,8 @@ Route::name('admin.')->prefix('admin')->group(function () {
         Route::get('/nametag/{registration}', NametagController::class)->name('registration.nametag');
 
         Route::resource('blast', BlastController::class)->only(['index', 'create', 'store']);
+
+        Route::get('/chart', [ChartController::class, 'showChartPage'])->name('registration.chart');
 
         // Route::post('/wa/{registration}', [TwilioController::class, 'sendMessage'])->name('twilio.sendMessage');
     });

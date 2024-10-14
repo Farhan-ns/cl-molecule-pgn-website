@@ -297,6 +297,11 @@ return [
             'text' => 'List Registrasi',
             'route' => 'admin.registration.index',
             'icon' => 'far fa-fw fa-file',
+        ],
+        [
+            'text' => 'Grafik',
+            'route' => 'admin.registration.chart',
+            'icon' => 'far fa-fw fa-chart-bar',
             // 'label'       => 4,
             // 'label_color' => 'success',
         ],
