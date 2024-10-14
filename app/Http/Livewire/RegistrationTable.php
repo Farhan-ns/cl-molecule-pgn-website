@@ -27,14 +27,16 @@ class RegistrationTable extends DataTableComponent
 
     protected $model = Registration::class;
     private $twilio;
+    private $suAccess;
 
     public array $bulkActions = [
-        'sendQrToPhone' => 'Kirim Kode QR',
+        'sendQrToPhone' => 'Kirim Kode QR'
     ];
 
     public function __construct()
     {
         $this->twilio = new TwilioService();
+        $this->suAccess = auth()->user()->user_type == 'su';
     }
 
     public function configure(): void
@@ -98,9 +100,25 @@ class RegistrationTable extends DataTableComponent
                     ];
                 })
                 ->buttons([
+                    LinkColumn::make('QR')
+                        ->title(fn($row) => 'QR')
+                        ->location(fn($row) => route('admin.registration.downloadQr', $row->id))
+                        ->attributes(function ($row) {
+                            return [
+                                'class' => 'btn btn-primary mb-1',
+                            ];
+                        }),
+                ])->hideIf($this->suAccess), // show only if not super admin
+            ButtonGroupColumn::make('Actions')
+                ->attributes(function ($row) {
+                    return [
+                        'class' => 'space-x-2'
+                    ];
+                })
+                ->buttons([
                     LinkColumn::make('Edit')
-                        ->title(fn ($row) => 'Edit')
-                        ->location(fn ($row) => route('admin.registration.edit', $row->id))
+                        ->title(fn($row) => 'Edit')
+                        ->location(fn($row) => route('admin.registration.edit', $row->id))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-warning mb-1',
@@ -125,8 +143,8 @@ class RegistrationTable extends DataTableComponent
                     //         ];
                     //     }),
                     LinkColumn::make('QR')
-                        ->title(fn ($row) => 'QR')
-                        ->location(fn ($row) => route('admin.registration.downloadQr', $row->id))
+                        ->title(fn($row) => 'QR')
+                        ->location(fn($row) => route('admin.registration.downloadQr', $row->id))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-primary mb-1',
@@ -134,19 +152,29 @@ class RegistrationTable extends DataTableComponent
                         }),
 
                     LinkColumn::make('Hapus')
-                        ->title(fn ($row) => 'Hapus')
-                        ->location(fn ($row) => route('admin.registration.destroy', $row->id))
+                        ->title(fn($row) => 'Hapus')
+                        ->location(fn($row) => route('admin.registration.destroy', $row->id))
                         ->attributes(function ($row) {
                             return [
                                 'class' => 'btn btn-danger mb-1',
                             ];
                         }),
-                ]),
+                ])->hideIf(!$this->suAccess), // show only if super admin
         ];
     }
 
     public function sendQrToPhone()
     {
+        if (!$this->suAccess) {
+            $this->alert('error', 'Anda memerlukan akses super-admin', [
+                'position' => 'center',
+                'toast' => false
+            ]);
+
+            $this->clearSelected();
+            return;
+        }
+
         $ids = collect($this->getSelected());
 
         $pathService = new PublicPathService();
