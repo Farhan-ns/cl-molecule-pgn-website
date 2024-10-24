@@ -11,6 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Queue\SerializesModels;
 use Throwable;
 
@@ -20,6 +21,15 @@ class SendToWhatsapp implements ShouldQueue
 
     private $registration;
     private $fileName;
+
+    public $timeout = 4800;
+
+    /**
+     * The number of seconds to wait before retrying the job.
+     *
+     * @var int
+     */
+    public $backoff = 180; // 3 min
 
     /**
      * Create a new job instance.

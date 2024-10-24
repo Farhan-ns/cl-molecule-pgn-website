@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class RegistrationRequest extends FormRequest
 {
@@ -23,8 +24,8 @@ class RegistrationRequest extends FormRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['required', 'email', 'unique:registrations'],
-            'phone' => ['required', 'numeric', 'unique:registrations'],
+            'email' => ['required', 'email', Rule::unique('registrations')->whereNull('deleted_at')],
+            'phone' => ['required', 'numeric', Rule::unique('registrations')->whereNull('deleted_at')],
             'company_industry' => ['nullable'],
             'company_industry_input' => ['required_if:company_industry,Other'],
             'company_name' => ['required'],

@@ -185,7 +185,9 @@ class RegistrationTable extends DataTableComponent
             $registration->last_blasted = now();
             $registration->save();
 
-            GenerateQrAndSend::dispatch($registration);
+            $delayInMinutes = mt_rand(2, 10);
+
+            GenerateQrAndSend::dispatch($registration)->delay(now()->addMinutes($delayInMinutes));
         }
 
         $this->alert('success', 'kode QR akan segera dikirim ke Whatsapp, proses ini dapat memakan waktu beberapa menit.', [
